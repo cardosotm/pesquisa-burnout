@@ -1,0 +1,62 @@
+[
+  {
+    "id": "resp-1789088703002-1yevp",
+    "createdAt": "2026-09-11T01:05:03.002Z",
+    "nome": "Gabriel Meireles",
+    "genero": "Masculino",
+    "idade": "30 a 34 anos",
+    "profissao": "Psicólogo",
+    "transporte": "A pé",
+    "q1_exaustao": "Raramente",
+    "q2_endurecendo": "Nunca",
+    "q3_trato_pacientes": "Sempre",
+    "q4_esgotado_fim_dia": "Raramente",
+    "q5_culpam_problemas": "Nunca",
+    "q6_entender_pacientes": "Sempre"
+  },
+  {
+    "id": "resp-1789088540897-nhfj2",
+    "createdAt": "2026-09-11T01:02:20.897Z",
+    "nome": "Amanda Silveira",
+    "genero": "Feminino",
+    "idade": "25 a 29 anos",
+    "profissao": "Terapeuta Ocupacional",
+    "transporte": "Bicicleta",
+    "q1_exaustao": "Algumas Vezes",
+    "q2_endurecendo": "Raramente",
+    "q3_trato_pacientes": "Sempre",
+    "q4_esgotado_fim_dia": "Algumas Vezes",
+    "q5_culpam_problemas": "Nunca",
+    "q6_entender_pacientes": "Sempre"
+  },
+  {
+    "id": "resp-1789088076703-s616y",
+    "createdAt": "2026-09-11T00:54:36.703Z",
+    "nome": "Paula",
+    "genero": "Feminino",
+    "idade": "25 a 29 anos",
+    "profissao": "Vendedora",
+    "transporte": "Bicicleta",
+    "q1_exaustao": "Raramente",
+    "q2_endurecendo": "Algumas Vezes",
+    "q3_trato_pacientes": "Raramente",
+    "q4_esgotado_fim_dia": "Nunca",
+    "q5_culpam_problemas": "Sempre",
+    "q6_entender_pacientes": "Nunca"
+  },
+  {
+    "id": "resp-1789088043647-wqnf7",
+    "createdAt": "2026-09-11T00:54:03.647Z",
+    "nome": "Mauricio",
+    "genero": "Masculino",
+    "idade": "30 a 34 anos",
+    "profissao": "TI",
+    "transporte": "Moto",
+    "q1_exaustao": "Raramente",
+    "q2_endurecendo": "Nunca",
+    "q3_trato_pacientes": "Raramente",
+    "q4_esgotado_fim_dia": "Frequentemente",
+    "q5_culpam_problemas": "Frequentemente",
+    "q6_entender_pacientes": "Raramente"
+  }
+]

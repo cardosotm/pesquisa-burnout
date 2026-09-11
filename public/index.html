@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avaliação de Saúde Ocupacional & Bem-estar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col justify-between relative selection:bg-indigo-500 selection:text-white">
+
+  <!-- Fundo com Iluminação Ambiente -->
+  <div class="ambient-glow"></div>
+
+  <!-- Barra Superior Flutuante -->
+  <header class="relative z-20 border-b border-white/10 bg-[#0c121e]/80 backdrop-blur-xl sticky top-0">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      
+      <div class="flex items-center space-x-3.5">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-sky-400 p-0.5 shadow-lg shadow-indigo-500/25">
+          <div class="w-full h-full bg-[#0d1322] rounded-[14px] flex items-center justify-center">
+            <i class="fa-solid fa-brain text-indigo-400 text-base"></i>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-sm font-bold text-white tracking-wide">Mapeamento de Bem-estar Profissional</h1>
+            <span class="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              Estudo 2026
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400">Ambiente 100% sigiloso e confidencial</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <div class="text-right hidden sm:block">
+          <p id="step-indicator-text" class="text-xs font-semibold text-slate-200">Etapa 1 de 2</p>
+          <p id="step-desc-text" class="text-[10px] text-slate-400">Perfil Profissional</p>
+        </div>
+        <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-xs font-bold text-indigo-400" id="step-number-circle">
+          1/2
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Barra de Progresso Superior Dinâmica -->
+    <div class="w-full bg-white/5 h-1 relative overflow-hidden">
+      <div id="top-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-sky-400 transition-all duration-500 shadow-[0_0_12px_rgba(99,102,241,0.8)]" style="width: 50%;"></div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Central -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex-1 w-full">
+
+    <!-- Container Principal com Efeito Glassmorphism -->
+    <div id="form-container" class="glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+      
+      <!-- Banner de Apresentação -->
+      <div class="p-6 sm:p-10 border-b border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent relative">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Pesquisa de Saúde & Esgotamento Ocupacional</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+            Como está a sua rotina e saúde mental no trabalho?
+          </h2>
+          <p class="mt-2.5 text-slate-300 text-sm leading-relaxed">
+            Seu relato é fundamental para compreendermos os impactos da rotina na saúde emocional dos profissionais. O preenchimento leva cerca de 2 minutos.
+          </p>
+        </div>
+      </div>
+
+      <form id="survey-form" class="p-6 sm:p-10 space-y-10">
+
+        <!-- ============================================== -->
+        <!-- ETAPA 1: DADOS DEMOGRÁFICOS & PERFIL -->
+        <!-- ============================================== -->
+        <div id="step-1" class="space-y-8">
+          
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center">
+                <span class="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 flex items-center justify-center text-xs mr-2.5 font-bold">1</span>
+                Dados Gerais & Perfil de Atuação
+              </h3>
+              <p class="text-xs text-slate-400 mt-1 ml-8.5">Preencha seus dados para contextualizarmos as respostas.</p>
+            </div>
+            <span class="text-xs text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-1 rounded-full">Passo 1/2</span>
+          </div>
+
+          <!-- Pergunta: Nome Completo -->
+          <div class="space-y-2">
+            <label for="nome" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Nome Completo <span class="text-rose-400">*</span>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                <i class="fa-regular fa-user"></i>
+              </div>
+              <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo"
+                class="modern-input w-full pl-11 pr-4 py-3.5 rounded-2xl text-sm placeholder-slate-500" />
+            </div>
+          </div>
+
+          <!-- Pergunta: Gênero -->
+          <div class="space-y-2.5">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Gênero <span class="text-rose-400">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <label class="selectable-card p-4 rounded-2xl flex items-center justify-between group">
+                <div class="flex items-center space-x-3.5">
+                  <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center text-base">
+                    <i class="fa-solid fa-mars"></i>
+                  </div>
+                  <div>
+                    <span class="block text-sm font-semibold text-white">Masculino</span>
+                    <span class="block text-[11px] text-slate-400">Identidade masculina</span>
+                  </div>
+                </div>
+                <input type="radio" name="genero" value="Masculino" required class="w-4 h-4 text-indigo-500 border-white/20 bg-transparent focus:ring-0" />
+              </label>
+
+              <label class="selectable-card p-4 rounded-2xl flex items-center justify-between group">
+                <div class="flex items-center space-x-3.5">
+                  <div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 border border-pink-500/20 flex items-center justify-center text-base">
+                    <i class="fa-solid fa-venus"></i>
+                  </div>
+                  <div>
+                    <span class="block text-sm font-semibold text-white">Feminino</span>
+                    <span class="block text-[11px] text-slate-400">Identidade feminina</span>
+                  </div>
+                </div>
+                <input type="radio" name="genero" value="Feminino" required class="w-4 h-4 text-indigo-500 border-white/20 bg-transparent focus:ring-0" />
+              </label>
+            </div>
+          </div>
+
+          <!-- Pergunta: Faixa Etária -->
+          <div class="space-y-2.5">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Faixa Etária (Idade) <span class="text-rose-400">*</span>
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+              <label class="selectable-card p-3.5 rounded-xl text-center flex flex-col items-center justify-center">
+                <input type="radio" name="idade" value="18 a 24 anos" required class="sr-only" />
+                <span class="text-sm font-semibold text-white">18 a 24</span>
+                <span class="text-[10px] text-slate-400">anos</span>
+              </label>
+
+              <label class="selectable-card p-3.5 rounded-xl text-center flex flex-col items-center justify-center">
+                <input type="radio" name="idade" value="25 a 29 anos" required class="sr-only" />
+                <span class="text-sm font-semibold text-white">25 a 29</span>
+                <span class="text-[10px] text-slate-400">anos</span>
+              </label>
+
+              <label class="selectable-card p-3.5 rounded-xl text-center flex flex-col items-center justify-center">
+                <input type="radio" name="idade" value="30 a 34 anos" required class="sr-only" />
+                <span class="text-sm font-semibold text-white">30 a 34</span>
+                <span class="text-[10px] text-slate-400">anos</span>
+              </label>
+
+              <label class="selectable-card p-3.5 rounded-xl text-center flex flex-col items-center justify-center">
+                <input type="radio" name="idade" value="35 a 39 anos" required class="sr-only" />
+                <span class="text-sm font-semibold text-white">35 a 39</span>
+                <span class="text-[10px] text-slate-400">anos</span>
+              </label>
+
+              <label class="selectable-card p-3.5 rounded-xl text-center flex flex-col items-center justify-center col-span-2 sm:col-span-1">
+                <input type="radio" name="idade" value="40+ anos" required class="sr-only" />
+                <span class="text-sm font-semibold text-white">40+</span>
+                <span class="text-[10px] text-slate-400">anos</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pergunta: Profissão / Função -->
+          <div class="space-y-2">
+            <label for="profissao" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Profissão / Função <span class="text-rose-400">*</span>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+              <input type="text" id="profissao" name="profissao" required placeholder="Ex: Enfermeiro(a), Médico(a), Fisioterapeuta, etc."
+                class="modern-input w-full pl-11 pr-4 py-3.5 rounded-2xl text-sm placeholder-slate-500" />
+            </div>
+          </div>
+
+          <!-- Pergunta: Meio de Transporte -->
+          <div class="space-y-2.5">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Meio de Transporte mais Utilizado para o Trabalho <span class="text-rose-400">*</span>
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              <label class="selectable-card p-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2">
+                <input type="radio" name="transporte" value="Carro" required class="sr-only" />
+                <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-car"></i>
+                </div>
+                <span class="text-xs font-bold text-white">Carro</span>
+              </label>
+
+              <label class="selectable-card p-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2">
+                <input type="radio" name="transporte" value="Moto" required class="sr-only" />
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-motorcycle"></i>
+                </div>
+                <span class="text-xs font-bold text-white">Moto</span>
+              </label>
+
+              <label class="selectable-card p-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2">
+                <input type="radio" name="transporte" value="Ônibus" required class="sr-only" />
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-bus"></i>
+                </div>
+                <span class="text-xs font-bold text-white">Ônibus</span>
+              </label>
+
+              <label class="selectable-card p-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2">
+                <input type="radio" name="transporte" value="Bicicleta" required class="sr-only" />
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-bicycle"></i>
+                </div>
+                <span class="text-xs font-bold text-white">Bicicleta</span>
+              </label>
+
+              <label class="selectable-card p-4 rounded-2xl text-center flex flex-col items-center justify-center space-y-2 col-span-2 sm:col-span-1">
+                <input type="radio" name="transporte" value="A pé" required class="sr-only" />
+                <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-person-walking"></i>
+                </div>
+                <span class="text-xs font-bold text-white">A pé</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Botão Avançar para Etapa 2 -->
+          <div class="pt-6 border-t border-white/10 flex justify-end">
+            <button type="button" id="btn-next-step"
+              class="px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 hover:from-indigo-600 hover:to-purple-600 text-white rounded-2xl font-bold text-sm shadow-xl shadow-indigo-500/25 flex items-center space-x-3 transition transform active:scale-95">
+              <span>Continuar para a Avaliação</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- ETAPA 2: AVALIAÇÃO DE BEM-ESTAR & ESGOTAMENTO -->
+        <!-- ============================================== -->
+        <div id="step-2" class="space-y-8 hidden">
+
+          <!-- Cabeçalho da Etapa 2 com Tracker de Questões -->
+          <div class="border-b border-white/10 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center">
+                <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 border border-purple-500/40 flex items-center justify-center text-xs mr-2.5 font-bold">2</span>
+                Escala de Bem-estar & Relação com Pacientes
+              </h3>
+              <p class="text-xs text-slate-400 mt-1 ml-8.5">Avalie a frequência de cada situação na sua rotina de trabalho.</p>
+            </div>
+
+            <!-- Progresso das 6 questões -->
+            <div class="flex items-center space-x-3 self-end sm:self-auto bg-white/5 border border-white/10 px-3.5 py-2 rounded-2xl">
+              <span id="answered-counter" class="text-xs font-bold text-indigo-300">0 de 6</span>
+              <div class="flex space-x-1.5" id="questions-dots">
+                <div class="q-dot" id="dot-q1"></div>
+                <div class="q-dot" id="dot-q2"></div>
+                <div class="q-dot" id="dot-q3"></div>
+                <div class="q-dot" id="dot-q4"></div>
+                <div class="q-dot" id="dot-q5"></div>
+                <div class="q-dot" id="dot-q6"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legenda Visual Interativa -->
+          <div class="bg-indigo-950/40 border border-indigo-500/20 rounded-2xl p-3.5 flex flex-wrap items-center justify-between text-xs text-slate-300 gap-2">
+            <span class="text-slate-400 font-medium"><i class="fa-solid fa-sliders text-indigo-400 mr-1.5"></i> Escala de Intensidade:</span>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🌿 Nunca</span>
+              <span class="px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">💧 Raramente</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">⚡ Às Vezes</span>
+              <span class="px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">🔥 Frequentemente</span>
+              <span class="px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">🚨 Sempre</span>
+            </div>
+          </div>
+
+          <!-- QUESTÃO 1 -->
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q1_exaustao">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 mb-2">
+                  <i class="fa-solid fa-battery-quarter"></i>
+                  <span>Exaustão Emocional</span>
+                </span>
+                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+                  1. Eu me sinto emocionalmente exausto pelo meu trabalho.
+                </h4>
+              </div>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+                <i class="fa-solid fa-circle-check mr-1"></i> Respondida
+              </span>
+            </div>
+
+            <!-- Opções da Questão 1 -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q1_exaustao" data-value="Nunca">
+                <span class="text-xs mb-0.5 opacity-75">🌿</span>
+                <span>Nunca</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q1_exaustao" data-value="Raramente">
+                <span class="text-xs mb-0.5 opacity-75">💧</span>
+                <span>Raramente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q1_exaustao" data-value="Algumas Vezes">
+                <span class="text-xs mb-0.5 opacity-75">⚡</span>
+                <span>Algumas Vezes</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q1_exaustao" data-value="Frequentemente">
+                <span class="text-xs mb-0.5 opacity-75">🔥</span>
+                <span>Frequentemente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold col-span-2 sm:col-span-1" data-name="q1_exaustao" data-value="Sempre">
+                <span class="text-xs mb-0.5 opacity-75">🚨</span>
+                <span>Sempre</span>
+              </button>
+            </div>
+            <input type="hidden" name="q1_exaustao" required />
+          </div>
+
+          <!-- QUESTÃO 2 -->
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q2_endurecendo">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-2">
+                  <i class="fa-solid fa-shield-heart"></i>
+                  <span>Endurecimento Emocional</span>
+                </span>
+                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+                  2. Eu sinto que esse trabalho está me endurecendo emocionalmente.
+                </h4>
+              </div>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+                <i class="fa-solid fa-circle-check mr-1"></i> Respondida
+              </span>
+            </div>
+
+            <!-- Opções da Questão 2 -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q2_endurecendo" data-value="Nunca">
+                <span class="text-xs mb-0.5 opacity-75">🌿</span>
+                <span>Nunca</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q2_endurecendo" data-value="Raramente">
+                <span class="text-xs mb-0.5 opacity-75">💧</span>
+                <span>Raramente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q2_endurecendo" data-value="Algumas Vezes">
+                <span class="text-xs mb-0.5 opacity-75">⚡</span>
+                <span>Algumas Vezes</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q2_endurecendo" data-value="Frequentemente">
+                <span class="text-xs mb-0.5 opacity-75">🔥</span>
+                <span>Frequentemente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold col-span-2 sm:col-span-1" data-name="q2_endurecendo" data-value="Sempre">
+                <span class="text-xs mb-0.5 opacity-75">🚨</span>
+                <span>Sempre</span>
+              </button>
+            </div>
+            <input type="hidden" name="q2_endurecendo" required />
+          </div>
+
+          <!-- QUESTÃO 3 -->
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q3_trato_pacientes">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 mb-2">
+                  <i class="fa-solid fa-hands-holding-child"></i>
+                  <span>Cuidado & Eficácia Profissional</span>
+                </span>
+                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+                  3. Eu trato de forma adequada os problemas dos meus pacientes.
+                </h4>
+              </div>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+                <i class="fa-solid fa-circle-check mr-1"></i> Respondida
+              </span>
+            </div>
+
+            <!-- Opções da Questão 3 -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q3_trato_pacientes" data-value="Nunca">
+                <span class="text-xs mb-0.5 opacity-75">🌿</span>
+                <span>Nunca</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q3_trato_pacientes" data-value="Raramente">
+                <span class="text-xs mb-0.5 opacity-75">💧</span>
+                <span>Raramente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q3_trato_pacientes" data-value="Algumas Vezes">
+                <span class="text-xs mb-0.5 opacity-75">⚡</span>
+                <span>Algumas Vezes</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q3_trato_pacientes" data-value="Frequentemente">
+                <span class="text-xs mb-0.5 opacity-75">🔥</span>
+                <span>Frequentemente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold col-span-2 sm:col-span-1" data-name="q3_trato_pacientes" data-value="Sempre">
+                <span class="text-xs mb-0.5 opacity-75">🚨</span>
+                <span>Sempre</span>
+              </button>
+            </div>
+            <input type="hidden" name="q3_trato_pacientes" required />
+          </div>
+
+          <!-- QUESTÃO 4 -->
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q4_esgotado_fim_dia">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 mb-2">
+                  <i class="fa-solid fa-moon"></i>
+                  <span>Desgaste no Final do Dia</span>
+                </span>
+                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+                  4. Eu me sinto esgotado ao final de um dia de trabalho.
+                </h4>
+              </div>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+                <i class="fa-solid fa-circle-check mr-1"></i> Respondida
+              </span>
+            </div>
+
+            <!-- Opções da Questão 4 -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q4_esgotado_fim_dia" data-value="Nunca">
+                <span class="text-xs mb-0.5 opacity-75">🌿</span>
+                <span>Nunca</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q4_esgotado_fim_dia" data-value="Raramente">
+                <span class="text-xs mb-0.5 opacity-75">💧</span>
+                <span>Raramente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q4_esgotado_fim_dia" data-value="Algumas Vezes">
+                <span class="text-xs mb-0.5 opacity-75">⚡</span>
+                <span>Algumas Vezes</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q4_esgotado_fim_dia" data-value="Frequentemente">
+                <span class="text-xs mb-0.5 opacity-75">🔥</span>
+                <span>Frequentemente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold col-span-2 sm:col-span-1" data-name="q4_esgotado_fim_dia" data-value="Sempre">
+                <span class="text-xs mb-0.5 opacity-75">🚨</span>
+                <span>Sempre</span>
+              </button>
+            </div>
+            <input type="hidden" name="q4_esgotado_fim_dia" required />
+          </div>
+
+          <!-- QUESTÃO 5 -->
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q5_culpam_problemas">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-2">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span>Percepção de Culpa & Pressão</span>
+                </span>
+                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+                  5. Eu sinto que os pacientes me culpam por alguns dos seus problemas.
+                </h4>
+              </div>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+                <i class="fa-solid fa-circle-check mr-1"></i> Respondida
+              </span>
+            </div>
+
+            <!-- Opções da Questão 5 -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q5_culpam_problemas" data-value="Nunca">
+                <span class="text-xs mb-0.5 opacity-75">🌿</span>
+                <span>Nunca</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q5_culpam_problemas" data-value="Raramente">
+                <span class="text-xs mb-0.5 opacity-75">💧</span>
+                <span>Raramente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q5_culpam_problemas" data-value="Algumas Vezes">
+                <span class="text-xs mb-0.5 opacity-75">⚡</span>
+                <span>Algumas Vezes</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q5_culpam_problemas" data-value="Frequentemente">
+                <span class="text-xs mb-0.5 opacity-75">🔥</span>
+                <span>Frequentemente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold col-span-2 sm:col-span-1" data-name="q5_culpam_problemas" data-value="Sempre">
+                <span class="text-xs mb-0.5 opacity-75">🚨</span>
+                <span>Sempre</span>
+              </button>
+            </div>
+            <input type="hidden" name="q5_culpam_problemas" required />
+          </div>
+
+          <!-- QUESTÃO 6 -->
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q6_entender_pacientes">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
+                  <i class="fa-solid fa-heart"></i>
+                  <span>Empatia & Conexão Humana</span>
+                </span>
+                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+                  6. Eu posso entender facilmente o que sentem os meus pacientes a cerca das coisas que acontecem no dia a dia.
+                </h4>
+              </div>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+                <i class="fa-solid fa-circle-check mr-1"></i> Respondida
+              </span>
+            </div>
+
+            <!-- Opções da Questão 6 -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q6_entender_pacientes" data-value="Nunca">
+                <span class="text-xs mb-0.5 opacity-75">🌿</span>
+                <span>Nunca</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q6_entender_pacientes" data-value="Raramente">
+                <span class="text-xs mb-0.5 opacity-75">💧</span>
+                <span>Raramente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q6_entender_pacientes" data-value="Algumas Vezes">
+                <span class="text-xs mb-0.5 opacity-75">⚡</span>
+                <span>Algumas Vezes</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold" data-name="q6_entender_pacientes" data-value="Frequentemente">
+                <span class="text-xs mb-0.5 opacity-75">🔥</span>
+                <span>Frequentemente</span>
+              </button>
+              <button type="button" class="likert-btn p-3 rounded-xl flex flex-col items-center justify-center text-xs font-semibold col-span-2 sm:col-span-1" data-name="q6_entender_pacientes" data-value="Sempre">
+                <span class="text-xs mb-0.5 opacity-75">🚨</span>
+                <span>Sempre</span>
+              </button>
+            </div>
+            <input type="hidden" name="q6_entender_pacientes" required />
+          </div>
+
+          <!-- Botões de Ação da Etapa 2 -->
+          <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+            <button type="button" id="btn-prev-step" class="px-6 py-3.5 rounded-2xl border border-white/10 hover:bg-white/5 text-slate-300 font-semibold text-xs flex items-center space-x-2 transition">
+              <i class="fa-solid fa-arrow-left text-xs"></i>
+              <span>Voltar ao Perfil</span>
+            </button>
+
+            <button type="submit" id="btn-submit" class="px-9 py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl font-extrabold text-sm shadow-xl shadow-emerald-500/25 flex items-center space-x-2.5 transition transform active:scale-95">
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+              <span>Concluir & Enviar Respostas</span>
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- Tela de Sucesso Após Envio -->
+    <div id="success-screen" class="hidden glass-panel rounded-3xl p-8 sm:p-14 border border-white/10 shadow-2xl text-center max-w-xl mx-auto space-y-6">
+      <div class="w-20 h-20 rounded-3xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-3xl shadow-xl shadow-emerald-500/10">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Muito Obrigado!</h2>
+        <p class="text-slate-300 mt-2.5 text-sm leading-relaxed">
+          Suas respostas foram gravadas com segurança e sigilo no banco de dados do estudo.
+        </p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-4 text-xs text-slate-400 text-left space-y-1.5">
+        <p class="font-bold text-slate-200 flex items-center">
+          <i class="fa-solid fa-shield-halved text-indigo-400 mr-2"></i> Sigilo e Privacidade dos Dados:
+        </p>
+        <p>Seus dados individuais foram anonimizados para a geração dos relatórios estatísticos da coordenação.</p>
+      </div>
+      <div class="pt-2">
+        <button onclick="window.location.reload()" class="px-6 py-3 rounded-xl border border-white/10 text-slate-300 hover:bg-white/5 text-xs font-semibold transition">
+          Preencher outro formulário
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Rodapé Moderno -->
+  <footer class="relative z-10 border-t border-white/10 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 Plataforma de Pesquisa Ocupacional. Todos os direitos reservados.</p>
+      <div class="flex items-center space-x-4 text-slate-400">
+        <span class="flex items-center"><i class="fa-solid fa-lock text-emerald-400 mr-1.5"></i> Protocolo Seguro</span>
+        <span>•</span>
+        <a href="/admin" class="hover:text-indigo-400 text-slate-400 transition font-medium">Área Restrita (Admin)</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/form.js"></script>
+</body>
+</html>

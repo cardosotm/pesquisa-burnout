@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Administrativo • Gráficos & Respostas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            admin: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              600: '#475569',
+              800: '#1e293b',
+              900: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Modal / Tela de Login do Admin (Exibido quando não autenticado) -->
+  <div id="login-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 sm:p-8 max-w-md w-full space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-slate-900 to-indigo-900 text-white flex items-center justify-center mx-auto text-2xl shadow-lg shadow-slate-900/20">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-900">Acesso Restrito ao Administrador</h2>
+        <p class="text-xs text-slate-500">Digite a senha de administrador para visualizar as respostas e os gráficos estatísticos.</p>
+      </div>
+
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label for="admin-password" class="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">
+            Senha do Painel
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-key"></i>
+            </div>
+            <input type="password" id="admin-password" required placeholder="Digite a senha (padrão: admin123)"
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 outline-none text-sm text-slate-800" />
+          </div>
+        </div>
+
+        <div id="login-error-msg" class="hidden text-xs font-medium text-rose-600 bg-rose-50 border border-rose-200 p-2.5 rounded-lg flex items-center space-x-2">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span id="login-error-text">Senha incorreta.</span>
+        </div>
+
+        <button type="submit" id="btn-do-login" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-sm shadow-md transition flex items-center justify-center space-x-2">
+          <span>Acessar Painel & Gráficos</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </button>
+      </form>
+
+      <div class="pt-2 text-center">
+        <a href="/" class="text-xs font-medium text-slate-500 hover:text-slate-800 transition">
+          <i class="fa-solid fa-arrow-left mr-1"></i> Voltar ao Formulário Público
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL PRINCIPAL (Exibido após login) -->
+  <div id="admin-dashboard" class="hidden flex-1 flex flex-col">
+
+    <!-- Barra de Navegação Superior -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow">
+            <i class="fa-solid fa-chart-pie text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-lg font-bold text-slate-900">Dashboard de Resultados</h1>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-800">ADMIN</span>
+            </div>
+            <p class="text-xs text-slate-500">Métricas consolidadas e análise de respostas da pesquisa</p>
+          </div>
+        </div>
+
+        <!-- Ações do Cabeçalho -->
+        <div class="flex items-center space-x-2.5">
+          <a href="/" target="_blank" class="px-3.5 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold flex items-center space-x-1.5 transition">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            <span class="hidden sm:inline">Ver Formulário</span>
+          </a>
+          
+          <button id="btn-refresh" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center space-x-1.5 transition">
+            <i class="fa-solid fa-arrows-rotate text-xs"></i>
+            <span class="hidden sm:inline">Atualizar</span>
+          </button>
+
+          <button id="btn-export-csv" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm flex items-center space-x-1.5 transition">
+            <i class="fa-solid fa-file-excel text-xs"></i>
+            <span>Exportar Excel (CSV)</span>
+          </button>
+
+          <button id="btn-logout" class="px-3.5 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold transition" title="Encerrar Sessão">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Conteúdo do Dashboard -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+
+      <!-- Cards de Métricas Principais (KPIs) -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Total de Respostas -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total de Respostas</p>
+            <h3 id="kpi-total" class="text-3xl font-extrabold text-slate-900 mt-1">0</h3>
+            <p class="text-[11px] text-emerald-600 mt-1 font-medium flex items-center">
+              <i class="fa-solid fa-circle-check mr-1 text-[9px]"></i> Dados consolidados
+            </p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-users"></i>
+          </div>
+        </div>
+
+        <!-- Nível Geral de Burnout -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Índice Médio de Esgotamento</p>
+            <div class="flex items-baseline space-x-2 mt-1">
+              <h3 id="kpi-burnout-score" class="text-3xl font-extrabold text-slate-900">0%</h3>
+              <span id="kpi-burnout-badge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-slate-700">Calculando...</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Baseado na escala emocional</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-gauge-high"></i>
+          </div>
+        </div>
+
+        <!-- Faixa Etária Predominante -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Idade Predominante</p>
+            <h3 id="kpi-top-age" class="text-xl font-bold text-slate-900 mt-1.5 truncate max-w-[170px]">-</h3>
+            <p class="text-[11px] text-slate-500 mt-1">Maior concentração</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+        </div>
+
+        <!-- Transporte Predominante -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Transporte Principal</p>
+            <h3 id="kpi-top-transport" class="text-xl font-bold text-slate-900 mt-1.5 truncate max-w-[170px]">-</h3>
+            <p class="text-[11px] text-slate-500 mt-1">Mais utilizado</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-route"></i>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Grade de Gráficos (Linha 1: Demografia) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Gráfico Gênero -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h4 class="text-sm font-bold text-slate-800 flex items-center">
+              <i class="fa-solid fa-venus-mars text-indigo-600 mr-2"></i> Distribuição por Gênero
+            </h4>
+          </div>
+          <div class="h-60 relative flex items-center justify-center">
+            <canvas id="chart-gender"></canvas>
+          </div>
+        </div>
+
+        <!-- Gráfico Faixa Etária -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h4 class="text-sm font-bold text-slate-800 flex items-center">
+              <i class="fa-solid fa-chart-column text-sky-600 mr-2"></i> Faixas Etárias
+            </h4>
+          </div>
+          <div class="h-60 relative">
+            <canvas id="chart-age"></canvas>
+          </div>
+        </div>
+
+        <!-- Gráfico Meios de Transporte -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h4 class="text-sm font-bold text-slate-800 flex items-center">
+              <i class="fa-solid fa-car-side text-teal-600 mr-2"></i> Meio de Transporte
+            </h4>
+          </div>
+          <div class="h-60 relative flex items-center justify-center">
+            <canvas id="chart-transport"></canvas>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Grade de Gráficos (Linha 2: Análise da Escala de Esgotamento / Burnout) -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Gráfico das 6 Afirmações da Escala (Barras Empilhadas) -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4 lg:col-span-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <h4 class="text-sm font-bold text-slate-800 flex items-center">
+                <i class="fa-solid fa-layer-group text-purple-600 mr-2"></i> Frequência nas 6 Afirmações de Bem-estar & Esgotamento
+              </h4>
+              <p class="text-xs text-slate-500 mt-0.5">Distribuição das respostas de Nunca a Sempre para cada afirmação</p>
+            </div>
+            <div class="flex items-center space-x-2 text-[10px] text-slate-500">
+              <span class="inline-block w-3 h-3 rounded bg-slate-300"></span> Nunca
+              <span class="inline-block w-3 h-3 rounded bg-amber-400"></span> Às vezes
+              <span class="inline-block w-3 h-3 rounded bg-rose-500"></span> Sempre
+            </div>
+          </div>
+          <div class="h-80 relative">
+            <canvas id="chart-likert-matrix"></canvas>
+          </div>
+        </div>
+
+        <!-- Radar de Fatores Críticos -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="border-b border-slate-100 pb-3">
+            <h4 class="text-sm font-bold text-slate-800 flex items-center">
+              <i class="fa-solid fa-bullseye text-rose-500 mr-2"></i> Radar de Intensidade Média
+            </h4>
+            <p class="text-xs text-slate-500 mt-0.5">Média ponderada por pergunta (0 a 4)</p>
+          </div>
+          <div class="h-80 relative flex items-center justify-center">
+            <canvas id="chart-radar-burnout"></canvas>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Tabela de Respostas Individuais -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+          <div>
+            <h4 class="text-base font-bold text-slate-900 flex items-center">
+              <i class="fa-solid fa-table-list text-slate-700 mr-2"></i> Respostas Registradas
+            </h4>
+            <p class="text-xs text-slate-500 mt-0.5">Visualize cada resposta individualmente e filtre por participante ou cargo.</p>
+          </div>
+
+          <div class="flex items-center space-x-3">
+            <!-- Barra de Busca -->
+            <div class="relative">
+              <input type="text" id="search-input" placeholder="Buscar por nome ou profissão..."
+                class="pl-8 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:border-slate-800 focus:ring-2 focus:ring-slate-800/10 outline-none w-56 sm:w-64 text-slate-800" />
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+            </div>
+
+            <!-- Botão Limpar Testes -->
+            <button id="btn-reset-data" class="px-3 py-2 rounded-xl border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 text-xs font-semibold transition" title="Limpar respostas de teste">
+              <i class="fa-regular fa-trash-can mr-1"></i> Limpar Dados
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabela -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-700">
+            <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Data / Hora</th>
+                <th class="py-3 px-4">Nome</th>
+                <th class="py-3 px-4">Gênero</th>
+                <th class="py-3 px-4">Idade</th>
+                <th class="py-3 px-4">Profissão / Função</th>
+                <th class="py-3 px-4">Transporte</th>
+                <th class="py-3 px-4">Exaustão</th>
+                <th class="py-3 px-4 text-center">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="table-responses-body" class="divide-y divide-slate-100 font-medium">
+              <tr>
+                <td colspan="8" class="text-center py-8 text-slate-400">Carregando respostas...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Rodapé Admin -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-400">
+      <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+        <p>Painel Administrativo da Pesquisa • Acesso Restrito</p>
+        <p class="text-slate-500">Google Forms Clone & Analytics Dashboard</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Modal de Detalhes da Resposta Individual -->
+  <div id="detail-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div>
+          <h3 id="modal-resp-name" class="text-lg font-bold text-slate-900">-</h3>
+          <p id="modal-resp-date" class="text-xs text-slate-500 mt-0.5">-</p>
+        </div>
+        <button id="btn-close-modal" class="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-400 hover:text-slate-700 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      
+      <div id="modal-resp-content" class="p-6 space-y-4 overflow-y-auto text-xs text-slate-700">
+        <!-- Injetado dinamicamente via admin.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>
