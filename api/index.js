@@ -1,13 +1,11 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_KEY || process.env.SUPABASE_ANON_KEY;
+// Credenciais diretas do Supabase para garantir conexão 100% à prova de erros de digitação
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://onvxicwohhrmqjxfzork.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9udnhpY3dvaGhybXFqeGZ6b3JrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwODk5NDcsImV4cCI6MjEwNDY2NTk0N30.yTE2alrQT0vhm78rHKZMY4YJ1MsjINnqjpYYtxmD3zM';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
-let supabase = null;
-if (SUPABASE_URL && SUPABASE_KEY) {
-  supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-}
+const supabase = createClient(SUPABASE_URL.trim(), SUPABASE_KEY.trim());
 
 function verifyAdmin(req) {
   const authHeader = req.headers ? (req.headers.authorization || req.headers.Authorization) : null;
@@ -101,9 +99,10 @@ module.exports = async (req, res) => {
     };
 
     try {
-      if (supabase) {
-        const { error } = await supabase.from('respostas').insert([newResponse]);
-        if (error) throw new Error(error.message);
+      const { error } = await supabase.from('respostas').insert([newResponse]);
+      if (error) {
+        console.error('Erro Supabase Insert:', error);
+        throw new Error(error.message || 'Falha ao salvar no banco');
       }
       return res.status(201).json({
         success: true,
@@ -112,7 +111,10 @@ module.exports = async (req, res) => {
       });
     } catch (err) {
       console.error('Erro ao salvar no banco:', err);
-      return res.status(500).json({ error: 'Erro ao salvar dados no banco de dados.' });
+      return res.status(500).json({
+        error: 'Erro ao salvar dados no banco de dados.',
+        details: err.message
+      });
     }
   }
 
@@ -124,13 +126,12 @@ module.exports = async (req, res) => {
 
     try {
       let responses = [];
-      if (supabase) {
-        const { data, error } = await supabase
-          .from('respostas')
-          .select('*')
-          .order('createdAt', { ascending: false });
-        if (!error && data) responses = data;
-      }
+      const { data, error } = await supabase
+        .from('respostas')
+        .select('*')
+        .order('createdAt', { ascending: false });
+      if (error) console.error('Erro Supabase Select:', error);
+      if (!error && data) responses = data;
 
       const likertScores = { 'Nunca': 0, 'Raramente': 1, 'Algumas Vezes': 2, 'Frequentemente': 3, 'Sempre': 4 };
       const generoCounts = { 'Masculino': 0, 'Feminino': 0, 'Outro': 0 };
@@ -217,7 +218,7 @@ module.exports = async (req, res) => {
         responses
       });
     } catch (err) {
-      return res.status(500).json({ error: 'Erro ao buscar dados.' });
+      return res.status(500).json({ error: 'Erro ao buscar dados.', details: err.message });
     }
   }
 
@@ -228,10 +229,8 @@ module.exports = async (req, res) => {
     }
 
     let responses = [];
-    if (supabase) {
-      const { data } = await supabase.from('respostas').select('*').order('createdAt', { ascending: false });
-      if (data) responses = data;
-    }
+    const { data } = await supabase.from('respostas').select('*').order('createdAt', { ascending: false });
+    if (data) responses = data;
 
     const headers = [
       "ID", "Data de Envio", "Nome", "Gênero", "Idade", "Profissão / Função", "Meio de Transporte",
@@ -278,9 +277,7 @@ module.exports = async (req, res) => {
     if (!verifyAdmin(req)) {
       return res.status(401).json({ error: 'Não autorizado.' });
     }
-    if (supabase) {
-      await supabase.from('respostas').delete().neq('id', 'placeholder_keep_all');
-    }
+    await supabase.from('respostas').delete().neq('id', 'placeholder_keep_all');
     return res.status(200).json({ success: true, message: 'Todas as respostas foram removidas.' });
   }
 
@@ -291,7 +288,7 @@ module.exports = async (req, res) => {
       return res.status(401).json({ error: 'Não autorizado.' });
     }
     const id = endpoint.replace('admin/responses/', '');
-    if (supabase && id) {
+    if (id) {
       await supabase.from('respostas').delete().eq('id', id);
     }
     return res.status(200).json({ success: true, message: 'Resposta removida com sucesso.' });
