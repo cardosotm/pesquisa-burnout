@@ -260,13 +260,14 @@
           </div>
 
           <!-- Botão Avançar para Etapa 2 -->
-          <div class="pt-6 border-t border-white/10 flex justify-end">
+          <div class="pt-5 border-t border-white/10 flex justify-end">
             <button type="button" id="btn-next-step"
-              class="px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 hover:from-indigo-600 hover:to-purple-600 text-white rounded-2xl font-bold text-sm shadow-xl shadow-indigo-500/25 flex items-center space-x-3 transition transform active:scale-95">
+              class="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-indigo-500/25 flex items-center justify-center space-x-2 transition transform active:scale-95">
               <span>Continuar para a Avaliação</span>
               <i class="fa-solid fa-arrow-right text-xs"></i>
             </button>
           </div>
+
 
         </div>
 
@@ -316,21 +317,19 @@
           </div>
 
           <!-- QUESTÃO 1 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q1_exaustao">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 mb-2">
-                  <i class="fa-solid fa-battery-quarter"></i>
-                  <span>Exaustão Emocional</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  1. Eu me sinto emocionalmente exausto pelo meu trabalho.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q1_exaustao">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                <i class="fa-solid fa-battery-quarter"></i>
+                <span>Exaustão Emocional</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              1. Eu me sinto emocionalmente exausto pelo meu trabalho.
+            </h4>
 
             <!-- Opções da Questão 1 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -354,21 +353,19 @@
           </div>
 
           <!-- QUESTÃO 2 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q2_endurecendo">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-2">
-                  <i class="fa-solid fa-shield-heart"></i>
-                  <span>Endurecimento Emocional</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  2. Eu sinto que esse trabalho está me endurecendo emocionalmente.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q2_endurecendo">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <i class="fa-solid fa-shield-heart"></i>
+                <span>Endurecimento Emocional</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              2. Eu sinto que esse trabalho está me endurecendo emocionalmente.
+            </h4>
 
             <!-- Opções da Questão 2 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -392,21 +389,20 @@
           </div>
 
           <!-- QUESTÃO 3 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q3_trato_pacientes">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 mb-2">
-                  <i class="fa-solid fa-hands-holding-child"></i>
-                  <span>Cuidado & Eficácia Profissional</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  3. Eu trato de forma adequada os problemas dos meus pacientes.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q3_trato_pacientes">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                <i class="fa-solid fa-hands-holding-child"></i>
+                <span>Cuidado & Eficácia Profissional</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              3. Eu trato de forma adequada os problemas dos meus pacientes.
+            </h4>
+
 
             <!-- Opções da Questão 3 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -430,21 +426,19 @@
           </div>
 
           <!-- QUESTÃO 4 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q4_esgotado_fim_dia">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 mb-2">
-                  <i class="fa-solid fa-moon"></i>
-                  <span>Desgaste no Final do Dia</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  4. Eu me sinto esgotado ao final de um dia de trabalho.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q4_esgotado_fim_dia">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                <i class="fa-solid fa-moon"></i>
+                <span>Desgaste no Final do Dia</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              4. Eu me sinto esgotado ao final de um dia de trabalho.
+            </h4>
 
             <!-- Opções da Questão 4 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -468,21 +462,19 @@
           </div>
 
           <!-- QUESTÃO 5 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q5_culpam_problemas">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-2">
-                  <i class="fa-solid fa-triangle-exclamation"></i>
-                  <span>Percepção de Culpa & Pressão</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  5. Eu sinto que os pacientes me culpam por alguns dos seus problemas.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q5_culpam_problemas">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Percepção de Culpa & Pressão</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              5. Eu sinto que os pacientes me culpam por alguns dos seus problemas.
+            </h4>
 
             <!-- Opções da Questão 5 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -506,21 +498,19 @@
           </div>
 
           <!-- QUESTÃO 6 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q6_entender_pacientes">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
-                  <i class="fa-solid fa-heart"></i>
-                  <span>Empatia & Conexão Humana</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  6. Eu posso entender facilmente o que sentem os meus pacientes a cerca das coisas que acontecem no dia a dia.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q6_entender_pacientes">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <i class="fa-solid fa-heart"></i>
+                <span>Empatia & Conexão Humana</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              6. Eu posso entender facilmente o que sentem os meus pacientes a cerca das coisas que acontecem no dia a dia.
+            </h4>
 
             <!-- Opções da Questão 6 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -543,22 +533,21 @@
             <input type="hidden" name="q6_entender_pacientes" required />
           </div>
 
+
           <!-- QUESTÃO 7 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q7_influencia_positiva">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
-                  <i class="fa-solid fa-seedling"></i>
-                  <span>Impacto & Propósito Positivo</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  7. Eu sinto que estou influenciando positivamente a vida de outras pessoas através do meu trabalho.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q7_influencia_positiva">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <i class="fa-solid fa-seedling"></i>
+                <span>Impacto & Propósito Positivo</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              7. Eu sinto que estou influenciando positivamente a vida de outras pessoas através do meu trabalho.
+            </h4>
 
             <!-- Opções da Questão 7 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -582,21 +571,19 @@
           </div>
 
           <!-- QUESTÃO 8 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q8_coisas_importantes">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 mb-2">
-                  <i class="fa-solid fa-award"></i>
-                  <span>Realização & Eficácia Pessoal</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  8. Eu tenho realizado muitas coisas importantes nesse trabalho.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q8_coisas_importantes">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                <i class="fa-solid fa-award"></i>
+                <span>Realização & Eficácia Pessoal</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              8. Eu tenho realizado muitas coisas importantes nesse trabalho.
+            </h4>
 
             <!-- Opções da Questão 8 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -620,21 +607,19 @@
           </div>
 
           <!-- QUESTÃO 9 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q9_trato_objetos">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 mb-2">
-                  <i class="fa-solid fa-user-slash"></i>
-                  <span>Distanciamento & Despersonalização</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  9. Eu sinto que eu trato alguns dos meus pacientes como se fossem objetos.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q9_trato_objetos">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                <i class="fa-solid fa-user-slash"></i>
+                <span>Distanciamento & Despersonalização</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              9. Eu sinto que eu trato alguns dos meus pacientes como se fossem objetos.
+            </h4>
 
             <!-- Opções da Questão 9 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -658,21 +643,19 @@
           </div>
 
           <!-- QUESTÃO 10 -->
-          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-4" data-q="q10_cansaco_manha">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-2">
-                  <i class="fa-solid fa-bed"></i>
-                  <span>Exaustão Matinal</span>
-                </span>
-                <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
-                  10. Eu me sinto cansado quando me levanto de manhã e tenho que encarar outro dia de trabalho.
-                </h4>
-              </div>
-              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 flex items-center">
+          <div class="question-card glass-card rounded-2xl p-5 sm:p-6 space-y-3.5" data-q="q10_cansaco_manha">
+            <div class="flex items-center justify-between gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <i class="fa-solid fa-bed"></i>
+                <span>Exaustão Matinal</span>
+              </span>
+              <span class="status-badge text-[11px] text-slate-500 hidden font-semibold text-emerald-400 items-center shrink-0">
                 <i class="fa-solid fa-circle-check mr-1"></i> Respondida
               </span>
             </div>
+            <h4 class="text-sm sm:text-base font-bold text-white leading-snug">
+              10. Eu me sinto cansado quando me levanto de manhã e tenho que encarar outro dia de trabalho.
+            </h4>
 
             <!-- Opções da Questão 10 -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
@@ -695,18 +678,19 @@
             <input type="hidden" name="q10_cansaco_manha" required />
           </div>
 
-          <!-- Botões de Ação da Etapa 2 -->
-          <div class="pt-6 border-t border-white/10 flex items-center justify-between">
-            <button type="button" id="btn-prev-step" class="px-6 py-3.5 rounded-2xl border border-white/10 hover:bg-white/5 text-slate-300 font-semibold text-xs flex items-center space-x-2 transition">
+          <!-- Botões de Ação da Etapa 2 (Ajustados e Proporcionais para Mobile & Desktop) -->
+          <div class="pt-5 border-t border-white/10 flex items-center gap-3">
+            <button type="button" id="btn-prev-step" class="px-4 py-3 sm:px-5 rounded-xl border border-white/10 hover:bg-white/5 text-slate-300 font-semibold text-xs flex items-center justify-center space-x-1.5 transition shrink-0">
               <i class="fa-solid fa-arrow-left text-xs"></i>
-              <span>Voltar ao Perfil</span>
+              <span>Voltar</span>
             </button>
 
-            <button type="submit" id="btn-submit" class="px-9 py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl font-extrabold text-sm shadow-xl shadow-emerald-500/25 flex items-center space-x-2.5 transition transform active:scale-95">
+            <button type="submit" id="btn-submit" class="flex-1 sm:flex-initial sm:px-8 py-3.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center space-x-2 transition transform active:scale-95 whitespace-nowrap">
               <i class="fa-solid fa-paper-plane text-xs"></i>
-              <span>Concluir & Enviar Respostas</span>
+              <span>Concluir & Enviar</span>
             </button>
           </div>
+
 
         </div>
 
