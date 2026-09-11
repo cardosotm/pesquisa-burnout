@@ -170,3 +170,43 @@ body {
   background: #334155;
   border-radius: 9999px;
 }
+
+/* =======================================================
+   OTIMIZAÇÕES MOBILE AVANÇADAS (iOS & Android)
+   ======================================================= */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, input, select, label, .likert-btn, .selectable-card {
+  touch-action: manipulation;
+}
+
+/* Previne zoom automático desagradável no iOS Safari e garante toque confortável */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="password"],
+  .modern-input {
+    font-size: 16px !important; /* iOS exige mínimo 16px para não dar zoom in */
+  }
+
+  .likert-btn {
+    min-height: 48px;
+    font-size: 12.5px;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .selectable-card {
+    min-height: 52px;
+  }
+}
+
+/* Suporte à área segura (Notch do iPhone, Dynamic Island e barra de gestos do Android/iOS) */
+body {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+}
+
+header {
+  padding-top: max(1rem, env(safe-area-inset-top, 0px));
+}

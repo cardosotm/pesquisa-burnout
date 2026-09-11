@@ -32,14 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Mapeamento das 6 perguntas para seus respectivos indicadores visuais
+  // Mapeamento das 10 perguntas para seus respectivos indicadores visuais
   const questionKeys = [
     'q1_exaustao',
     'q2_endurecendo',
     'q3_trato_pacientes',
     'q4_esgotado_fim_dia',
     'q5_culpam_problemas',
-    'q6_entender_pacientes'
+    'q6_entender_pacientes',
+    'q7_influencia_positiva',
+    'q8_coisas_importantes',
+    'q9_trato_objetos',
+    'q10_cansaco_manha'
   ];
 
   function updateQuestionTracker() {
@@ -69,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (answeredCounter) {
-      answeredCounter.textContent = `${answeredCount} de 6`;
+      answeredCounter.textContent = `${answeredCount} de 10`;
     }
   }
 
@@ -193,7 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
       q3_trato_pacientes: form.querySelector('input[name="q3_trato_pacientes"]').value,
       q4_esgotado_fim_dia: form.querySelector('input[name="q4_esgotado_fim_dia"]').value,
       q5_culpam_problemas: form.querySelector('input[name="q5_culpam_problemas"]').value,
-      q6_entender_pacientes: form.querySelector('input[name="q6_entender_pacientes"]').value
+      q6_entender_pacientes: form.querySelector('input[name="q6_entender_pacientes"]').value,
+      q7_influencia_positiva: form.querySelector('input[name="q7_influencia_positiva"]').value,
+      q8_coisas_importantes: form.querySelector('input[name="q8_coisas_importantes"]').value,
+      q9_trato_objetos: form.querySelector('input[name="q9_trato_objetos"]').value,
+      q10_cansaco_manha: form.querySelector('input[name="q10_cansaco_manha"]').value
     };
 
     btnSubmit.disabled = true;

@@ -306,10 +306,25 @@ document.addEventListener('DOMContentLoaded', () => {
       '3. Trato Adequado',
       '4. Esgotamento Final Dia',
       '5. Culpa de Pacientes',
-      '6. Entendimento Empático'
+      '6. Entendimento Empático',
+      '7. Influência Positiva',
+      '8. Realização Importante',
+      '9. Pacientes como Objetos',
+      '10. Cansaço Matinal'
     ];
 
-    const keys = ['q1_exaustao', 'q2_endurecendo', 'q3_trato_pacientes', 'q4_esgotado_fim_dia', 'q5_culpam_problemas', 'q6_entender_pacientes'];
+    const keys = [
+      'q1_exaustao',
+      'q2_endurecendo',
+      'q3_trato_pacientes',
+      'q4_esgotado_fim_dia',
+      'q5_culpam_problemas',
+      'q6_entender_pacientes',
+      'q7_influencia_positiva',
+      'q8_coisas_importantes',
+      'q9_trato_objetos',
+      'q10_cansaco_manha'
+    ];
     const likertLevels = ['Nunca', 'Raramente', 'Algumas Vezes', 'Frequentemente', 'Sempre'];
     const colors = ['#cbd5e1', '#93c5fd', '#fbbf24', '#f97316', '#ef4444'];
 
@@ -360,7 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
     chartRadar = new Chart(ctxRadar, {
       type: 'radar',
       data: {
-        labels: ['Exaustão', 'Endurecimento', 'Trato Adequado', 'Esgotamento', 'Culpa Pacientes', 'Empatia'],
+        labels: [
+          'Exaustão', 'Endurecimento', 'Trato Adequado', 'Esgotamento', 'Culpa',
+          'Empatia', 'Influência Positiva', 'Realização', 'Despersonalização', 'Cansaço Matinal'
+        ],
         datasets: [{
           label: 'Intensidade Média (0 a 4)',
           data: radarValues,
@@ -507,6 +525,26 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="bg-slate-50 p-3 rounded-xl flex items-center justify-between border border-slate-100">
           <span class="text-slate-700">6. Entendimento fácil dos sentimentos dos pacientes:</span>
           <span class="font-bold px-2 py-0.5 rounded bg-white border text-slate-800">${r.q6_entender_pacientes}</span>
+        </div>
+
+        <div class="bg-slate-50 p-3 rounded-xl flex items-center justify-between border border-slate-100">
+          <span class="text-slate-700">7. Influência positiva na vida de pessoas:</span>
+          <span class="font-bold px-2 py-0.5 rounded bg-white border text-slate-800">${r.q7_influencia_positiva || '-'}</span>
+        </div>
+
+        <div class="bg-slate-50 p-3 rounded-xl flex items-center justify-between border border-slate-100">
+          <span class="text-slate-700">8. Realização de coisas importantes:</span>
+          <span class="font-bold px-2 py-0.5 rounded bg-white border text-slate-800">${r.q8_coisas_importantes || '-'}</span>
+        </div>
+
+        <div class="bg-slate-50 p-3 rounded-xl flex items-center justify-between border border-slate-100">
+          <span class="text-slate-700">9. Trato pacientes como se fossem objetos:</span>
+          <span class="font-bold px-2 py-0.5 rounded bg-white border text-slate-800">${r.q9_trato_objetos || '-'}</span>
+        </div>
+
+        <div class="bg-slate-50 p-3 rounded-xl flex items-center justify-between border border-slate-100">
+          <span class="text-slate-700">10. Cansaço ao acordar para encarar o trabalho:</span>
+          <span class="font-bold px-2 py-0.5 rounded bg-white border text-slate-800">${r.q10_cansaco_manha || '-'}</span>
         </div>
       </div>
     `;
