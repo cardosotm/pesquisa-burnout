@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 const DATA_FILE = path.join(__dirname, 'data', 'responses.json');
 
-// Configuração do Supabase (se fornecidas as variáveis de ambiente)
+// Configuração do Supabase
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY || process.env.SUPABASE_ANON_KEY;
 let supabase = null;
@@ -22,14 +22,27 @@ if (SUPABASE_URL && SUPABASE_KEY) {
 }
 
 app.use(cors());
-app.use(express.json());
+
+// Parser seguro compatível com Vercel Serverless e Local
+app.use((req, res, next) => {
+  if (req.body && typeof req.body === 'object') {
+    return next();
+  }
+  express.json()(req, res, (err) => {
+    if (err) {
+      console.error('Erro parser JSON:', err);
+      return res.status(400).json({ error: 'Formato JSON inválido.' });
+    }
+    next();
+  });
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Inicializa arquivo de dados local para desenvolvimento offline
 function initializeData() {
   if (!fs.existsSync(DATA_FILE)) {
-    const seedData = [];
-    fs.writeFileSync(DATA_FILE, JSON.stringify(seedData, null, 2), 'utf-8');
+    fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2), 'utf-8');
   }
 }
 initializeData();
@@ -43,12 +56,12 @@ async function getResponses() {
         .select('*')
         .order('createdAt', { ascending: false });
       if (error) {
-        console.error('Erro ao consultar Supabase:', error.message);
+        console.error('Erro Supabase:', error.message);
         return [];
       }
       return data || [];
     } catch (err) {
-      console.error('Erro de conexão com Supabase:', err);
+      console.error('Erro de conexão Supabase:', err);
       return [];
     }
   } else {
@@ -120,8 +133,13 @@ function requireAdminAuth(req, res, next) {
   next();
 }
 
+// ===============================================
+// ROTAS DA API (Compatíveis com /api e sem /api)
+// ===============================================
+const apiRouter = express.Router();
+
 // 1. Rota de envio do formulário (Pública)
-app.post('/api/submit', async (req, res) => {
+apiRouter.post('/submit', async (req, res) => {
   const {
     nome,
     genero,
@@ -138,7 +156,7 @@ app.post('/api/submit', async (req, res) => {
     q8_coisas_importantes,
     q9_trato_objetos,
     q10_cansaco_manha
-  } = req.body;
+  } = req.body || {};
 
   if (!nome || !genero || !idade || !profissao || !transporte ||
       !q1_exaustao || !q2_endurecendo || !q3_trato_pacientes ||
@@ -175,14 +193,14 @@ app.post('/api/submit', async (req, res) => {
       id: newResponse.id
     });
   } catch (err) {
-    console.error('Erro ao gravar resposta:', err);
+    console.error('Erro ao salvar:', err);
     return res.status(500).json({ error: 'Erro ao salvar dados no banco de dados.' });
   }
 });
 
 // 2. Rota de login do Administrador
-app.post('/api/admin/login', (req, res) => {
-  const { password } = req.body;
+apiRouter.post('/admin/login', (req, res) => {
+  const { password } = req.body || {};
   if (password === ADMIN_PASSWORD) {
     const token = Buffer.from(ADMIN_PASSWORD).toString('base64');
     return res.json({ success: true, token });
@@ -191,7 +209,7 @@ app.post('/api/admin/login', (req, res) => {
 });
 
 // 3. Rota de estatísticas e gráficos para o Administrador
-app.get('/api/admin/stats', requireAdminAuth, async (req, res) => {
+apiRouter.get('/admin/stats', requireAdminAuth, async (req, res) => {
   const responses = await getResponses();
 
   const likertScores = { 'Nunca': 0, 'Raramente': 1, 'Algumas Vezes': 2, 'Frequentemente': 3, 'Sempre': 4 };
@@ -283,7 +301,7 @@ app.get('/api/admin/stats', requireAdminAuth, async (req, res) => {
 });
 
 // 4. Rota para deletar resposta específica
-app.delete('/api/admin/responses/:id', requireAdminAuth, async (req, res) => {
+apiRouter.delete('/admin/responses/:id', requireAdminAuth, async (req, res) => {
   const { id } = req.params;
   try {
     await deleteResponseById(id);
@@ -294,7 +312,7 @@ app.delete('/api/admin/responses/:id', requireAdminAuth, async (req, res) => {
 });
 
 // 5. Rota para limpar / resetar dados
-app.post('/api/admin/reset-data', requireAdminAuth, async (req, res) => {
+apiRouter.post('/admin/reset-data', requireAdminAuth, async (req, res) => {
   try {
     await resetAllResponses();
     res.json({ success: true, message: 'Todas as respostas foram removidas.' });
@@ -304,7 +322,7 @@ app.post('/api/admin/reset-data', requireAdminAuth, async (req, res) => {
 });
 
 // 6. Rota para Exportar CSV compatível com Excel (UTF-8 com BOM)
-app.get('/api/admin/export-csv', requireAdminAuth, async (req, res) => {
+apiRouter.get('/admin/export-csv', requireAdminAuth, async (req, res) => {
   const responses = await getResponses();
   
   const headers = [
@@ -360,8 +378,16 @@ app.get('/api/admin/export-csv', requireAdminAuth, async (req, res) => {
   res.send(csvContent);
 });
 
+// Registra as rotas sob /api e também sob a raiz (para máxima compatibilidade com Vercel)
+app.use('/api', apiRouter);
+app.use('/', apiRouter);
+
 // Rotas de Páginas
 app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+app.get('/admin.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
