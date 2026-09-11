@@ -714,29 +714,53 @@
 
     </div>
 
-    <!-- Tela de Sucesso Após Envio -->
-    <div id="success-screen" class="hidden glass-panel rounded-3xl p-8 sm:p-14 border border-white/10 shadow-2xl text-center max-w-xl mx-auto space-y-6">
-      <div class="w-20 h-20 rounded-3xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-3xl shadow-xl shadow-emerald-500/10">
-        <i class="fa-solid fa-check"></i>
+    <!-- Tela Após Envio (Frase & Vídeo) -->
+    <div id="success-screen" class="hidden glass-panel rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl text-center max-w-2xl mx-auto space-y-6">
+      
+      <!-- Frase do Usuário -->
+      <div class="space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          Frase aqui
+        </h2>
       </div>
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Muito Obrigado!</h2>
-        <p class="text-slate-300 mt-2.5 text-sm leading-relaxed">
-          Suas respostas foram gravadas com segurança e sigilo no banco de dados do estudo.
-        </p>
+
+      <!-- Player de Vídeo (Modelo / Placeholder) -->
+      <div class="relative w-full aspect-video rounded-2xl bg-slate-900/90 border border-white/15 shadow-2xl flex flex-col items-center justify-center overflow-hidden group">
+        
+        <!-- Gradiente de Fundo do Player -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+
+        <!-- Botão Play Central Estilizado -->
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-emerald-500 text-white flex items-center justify-center shadow-2xl shadow-indigo-500/50 cursor-pointer transform group-hover:scale-110 transition duration-300 z-10 pl-1">
+          <i class="fa-solid fa-play text-xl sm:text-2xl"></i>
+        </div>
+
+        <!-- Barra de Controles Inferior Simulada -->
+        <div class="absolute bottom-0 inset-x-0 p-3 sm:p-4 flex items-center justify-between text-slate-400 text-xs z-10 bg-black/60 backdrop-blur-md border-t border-white/10">
+          <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-play text-slate-300"></i>
+            <span class="text-[11px] font-mono text-slate-300">0:00 / 0:00</span>
+          </div>
+          <!-- Barra de Progresso Fictícia -->
+          <div class="flex-1 mx-4 h-1.5 bg-white/20 rounded-full overflow-hidden">
+            <div class="w-0 h-full bg-emerald-500 rounded-full"></div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-volume-high text-slate-300"></i>
+            <i class="fa-solid fa-expand text-slate-300"></i>
+          </div>
+        </div>
+
       </div>
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-4 text-xs text-slate-400 text-left space-y-1.5">
-        <p class="font-bold text-slate-200 flex items-center">
-          <i class="fa-solid fa-shield-halved text-indigo-400 mr-2"></i> Sigilo e Privacidade dos Dados:
-        </p>
-        <p>Seus dados individuais foram anonimizados para a geração dos relatórios estatísticos da coordenação.</p>
-      </div>
-      <div class="pt-2">
-        <button onclick="window.location.reload()" class="px-6 py-3 rounded-xl border border-white/10 text-slate-300 hover:bg-white/5 text-xs font-semibold transition">
+
+      <!-- Ações Opcionais -->
+      <div class="pt-2 flex items-center justify-center">
+        <button onclick="window.location.reload()" class="px-6 py-3 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 text-xs font-semibold transition">
           Preencher outro formulário
         </button>
       </div>
     </div>
+
 
   </main>
 
