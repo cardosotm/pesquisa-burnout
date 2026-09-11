@@ -55,6 +55,14 @@ body {
   background: rgba(99, 102, 241, 0.04);
 }
 
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+}
+.status-badge.hidden {
+  display: none !important;
+}
+
 /* Botões da Escala Likert - Estilo Pílulas Interativas Modernas */
 .likert-btn {
   position: relative;
