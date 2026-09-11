@@ -1,8 +1,8 @@
 const { createClient } = require('@supabase/supabase-js');
 
-// Credenciais diretas do Supabase para garantir conexão 100% à prova de erros de digitação
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://onvxicwohhrmqjxfzork.supabase.co';
-const SUPABASE_KEY = process.env.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9udnhpY3dvaGhybXFqeGZ6b3JrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwODk5NDcsImV4cCI6MjEwNDY2NTk0N30.yTE2alrQT0vhm78rHKZMY4YJ1MsjINnqjpYYtxmD3zM';
+// Credenciais diretas e validadas do Supabase (ignora variável quebrada na Vercel)
+const SUPABASE_URL = 'https://onvxicwohhrmqjxfzork.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9udnhpY3dvaGhybXFqeGZ6b3JrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwODk5NDcsImV4cCI6MjEwNDY2NTk0N30.yTE2alrQT0vhm78rHKZMY4YJ1MsjINnqjpYYtxmD3zM';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
 const supabase = createClient(SUPABASE_URL.trim(), SUPABASE_KEY.trim());
