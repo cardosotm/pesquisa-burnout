@@ -724,18 +724,28 @@
       </div>
 
       <!-- Player de Vídeo Vertical (9:16 - Reels / Shorts) -->
-      <div class="relative w-full max-w-[310px] sm:max-w-[330px] aspect-[9/16] mx-auto rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl shadow-indigo-950/60 ring-1 ring-white/10">
+      <div class="relative w-full max-w-[310px] sm:max-w-[330px] aspect-[9/16] mx-auto rounded-3xl overflow-hidden border border-white/15 bg-slate-950 shadow-2xl shadow-indigo-950/60 ring-1 ring-white/10 group">
         <video 
           id="final-message-video"
           controls 
           playsinline 
-          preload="metadata"
+          preload="auto"
           poster="/videos/poster-burnout.jpg"
           class="w-full h-full object-cover rounded-3xl bg-black"
         >
           <source src="/videos/burnout-mensagem.mp4" type="video/mp4">
           Seu navegador não suporta a reprodução deste vídeo.
         </video>
+
+        <!-- Botão flutuante para ativar som (caso o navegador force iniciar mudo) -->
+        <button 
+          id="btn-unmute-overlay" 
+          type="button" 
+          class="hidden absolute top-4 inset-x-4 mx-auto w-fit z-20 bg-slate-900/90 hover:bg-slate-800 text-white border border-amber-400/40 px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-xl backdrop-blur-md flex items-center space-x-2 transition transform active:scale-95 animate-bounce"
+        >
+          <i class="fa-solid fa-volume-high text-amber-400"></i>
+          <span>Toque para ativar o som</span>
+        </button>
       </div>
 
       <!-- Card Profissional de Créditos & Instagram -->

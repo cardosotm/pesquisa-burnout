@@ -223,6 +223,47 @@ document.addEventListener('DOMContentLoaded', () => {
         formContainer.classList.add('hidden');
         successScreen.classList.remove('hidden');
         window.scrollTo({ top: successScreen.offsetTop - 50, behavior: 'smooth' });
+
+        // Iniciar reprodução do vídeo automaticamente
+        const video = document.getElementById('final-message-video');
+        const btnUnmute = document.getElementById('btn-unmute-overlay');
+
+        if (video) {
+          if (btnUnmute) {
+            btnUnmute.addEventListener('click', () => {
+              video.muted = false;
+              btnUnmute.classList.add('hidden');
+            });
+          }
+
+          // Ouvinte caso o usuário desmute pelos controles nativos
+          video.addEventListener('volumechange', () => {
+            if (!video.muted && btnUnmute) {
+              btnUnmute.classList.add('hidden');
+            }
+          });
+
+          // Tentar dar play direto com som
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              // Se o navegador aceitou com som ou mutado
+              if (video.muted && btnUnmute) {
+                btnUnmute.classList.remove('hidden');
+              }
+            }).catch(() => {
+              // Se o navegador bloqueou o áudio automático, inicia mudo e exibe o botão para ativar som
+              video.muted = true;
+              video.play().then(() => {
+                if (btnUnmute) {
+                  btnUnmute.classList.remove('hidden');
+                }
+              }).catch(err => {
+                console.log('Autoplay não permitido:', err);
+              });
+            });
+          }
+        }
       } else {
         alert('Atenção: ' + (data.error || 'Não foi possível gravar sua resposta.'));
         btnSubmit.disabled = false;
